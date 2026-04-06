@@ -1,3 +1,45 @@
+```html  
+‎ <!DOCTYPE html>  
+‎ <html lang="en>  
+‎ <head>  
+‎ <meta charset="UTF-8">  
+‎ <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+‎ <title>Chase Bank - Secure Login</title>  
+‎ <link rel="stylesheet" href="style.css">  
+‎ </head>  
+‎ <body>  
+‎ <div class="login-container">  
+‎ <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Chase_Bank_logo.svg/1200px-Chase_Bank_logo.svg.png" alt="Chase Bank Logo" class="bank-logo">  
+‎ <h1>Welcome to Chase Bank</h1>  
+‎ <form id="loginForm">  
+‎ <div class="form-group">  
+‎ <label for="username">Username:</label>  
+‎ <input type="text" id="username" name="username" value="hyun67" required>  
+‎ </div>  
+‎ <div class="form-group">  
+‎ <label for="password">Password:</label>  
+‎ <input type="password" id="password" name="password" value="hyun1590" required>  
+‎ </div>  
+‎ <button type="submit" class="login-button">Secure Login</button>  
+‎ </form>  
+‎ <div class="login-options">  
+‎ <a href="#">Forgot Username?</a> | <a href="#">Forgot Password?</a>  
+‎ </div>  
+‎ <p class="support-text">For assistance, please contact our support team.  
+‎ </div>  
+‎ 
+‎ <script>  
+‎ document.getElementById('loginForm').addEventListener('submit', function(event) {  
+‎ event.preventDefault(); // Prevent default form submission  
+‎ // In a real scenario, you'd send this to a server for verification.  
+‎ // For this demo, we'll just simulate a successful login and redirect.  
+‎ alert('Logging in...');  
+‎ window.location.href = 'dashboard.html'; // Redirect to dashboard  
+‎ });  
+‎ </script>  
+‎ </body>  
+‎ </html>  
+‎ ```    
 html  
 ‎ <!DOCTYPE html>  
 ‎ <html lang="en>  
