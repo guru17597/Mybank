@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Global Bank - Dashboard</title>
+    <style>
+        :root { --primary: #1a1a2e; --accent: #4361ee; --success: #27ae60; --text: #333; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f2f5; margin: 0; display: flex; color: var(--text); }
+        
+        /* Sidebar */
+        .sidebar { width: 240px; background: var(--primary); color: white; height: 100vh; padding: 20px; box-sizing: border-box; }
+        .sidebar h2 { border-bottom: 1px solid #333; padding-bottom: 10px; color: var(--accent); }
+        
+        /* Main Layout */
+        .main-content { flex: 1; padding: 40px; }
+        .card { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); max-width: 800px; margin: auto; }
+        
+        /* Elements */
+        .balance-label { font-size: 0.9rem; color: #666; text-transform: uppercase; letter-spacing: 1px; }
+        .balance-amount { color: var(--success); font-size: 3.5rem; font-weight: 800; margin: 10px 0; }
+        .btn-group { display: flex; gap: 15px; margin-top: 20px; }
+        
+        .btn { padding: 12px 24px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; transition: 0.3s; text-decoration: none; display: inline-block; }
+        .btn-primary { background: var(--accent); color: white; }
+        .btn-primary:hover { background: #304ccf; }
+
+        /* Modal / Form Overlay */
+        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); justify-content: center; align-items: center; z-index: 100; }
+        .modal { background: white; padding: 30px; border-radius: 12px; width: 400px; position: relative; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
+        
+        .error-box { background: #fff5f5; border-left: 4px solid #ff4d4d; padding: 15px; margin-top: 15px; display: none; }
+        .fee-text { color: #ff4d4d; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+    <h2>NEXUS BANK</h2>
+    <p>Dashboard</p>
+    <p>Accounts</p>
+    <p>Settings</p>
+</div>
+
+<div class="main-content">
+    <div class="card">
+        <p class="balance-label">Total Available Balance</p>
+        <div class="balance-amount">$1,000,000.00</div>
+        <p>Account Holder: <strong>Alexander Sterling</strong></p>
+        
+        <div class="btn-group">
+            <button class="btn btn-primary" onclick="openModal()">International Transfer</button>
+        </div>
+
+        <h4 style="margin-top: 40px;">Recent Activity</h4>
+        <hr>
+        <div style="display: flex; justify-content: space-between; padding: 10px 0;">
+            <span>Initial Deposit</span>
+            <span style="color: var(--success); font-weight: bold;">+$1,000,000.00</span>
+        </div>
+    </div>
+</div>
+
+<!-- Transfer Modal -->
+<div id="transferModal" class="overlay">
+    <div class="modal">
+        <h3>International Transfer</h3>
+        <p style="font-size: 0.8rem; color: #666;">Swift/BIC Routing Enabled</p>
+        
+        <div id="formSection">
+            <input type="text" placeholder="Recipient Full Name">
+            <input type="text" placeholder="IBAN / Account Number">
+            <input type="text" placeholder="Bank Name & Country">
+            <input type="number" id="amount" placeholder="Amount to Transfer ($)">
+            <button class="btn btn-primary" style="width:100%" onclick="showFeeError()">Initiate Transfer</button>
+        </div>
+
+        <!-- Clearance Fee Message -->
+        <div id="feeSection" class="error-box">
+            <h4 style="margin-top:0; color: #d63031;">Transfer Blocked</h4>
+            <p>To process this international withdrawal of <span id="displayAmount"></span>, a <strong>Non-Resident Clearance Fee (0.5%)</strong> is required.</p>
+            <p class="fee-text">Required Fee: $5,000.00</p>
+            <p style="font-size: 0.85rem;">Please contact your account manager or pay the fee via the "Tax Portal" to release funds.</p>
+            <button class="btn" style="background:#eee;" onclick="closeModal()">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openModal() {
+        document.getElementById('transferModal').style.display = 'flex';
+        document.getElementById('formSection').style.display = 'block';
+        document.getElementById('feeSection').style.display = 'none';
+    }
+
+    function closeModal() {
+        document.getElementById('transferModal').style.display = 'none';
+    }
+
+    function showFeeError() {
+        const amt = document.getElementById('amount').value;
+        if(!amt) { alert("Please enter an amount"); return; }
+        
+        document.getElementById('displayAmount').innerText = "$" + Number(amt).toLocaleString();
+        document.getElementById('formSection').style.display = 'none';
+        document.getElementById('feeSection').style.display = 'block';
+    }
+</script>
+
+</body>
+</html>
