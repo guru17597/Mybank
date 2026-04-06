@@ -3,138 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chase Online | Melina</title>
+    <title>Chase Mobile | Melina</title>
     <style>
-        :root { --chase-blue: #117aca; --chase-dark: #00467f; --bg: #f4f7f9; --text: #333; --success: #228b22; }
-        body { font-family: 'Open Sans', sans-serif; background: var(--bg); color: var(--text); margin: 0; overflow-x: hidden; }
-        
-        /* Login Screen */
-        #login-screen { position: fixed; top:0; left:0; width:100%; height:100%; background: white; z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .login-box { width: 320px; text-align: center; }
-        .chase-logo { width: 180px; margin-bottom: 30px; }
-        input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 1rem; }
-        .login-btn { width: 100%; padding: 12px; background: var(--chase-blue); color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; margin-top: 10px; }
-        
-        /* Dashboard Layout */
-        #dashboard { display: none; }
-        .navbar { background: var(--chase-dark); color: white; padding: 15px 40px; display: flex; justify-content: space-between; align-items: center; }
-        .sidebar { width: 240px; background: white; height: 100vh; border-right: 1px solid #ddd; padding: 20px; position: fixed; }
-        .main { margin-left: 280px; padding: 40px; }
-        
-        /* Financial Cards */
-        .card { background: white; padding: 25px; border-radius: 4px; border-bottom: 4px solid var(--chase-blue); box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 20px; }
-        .balance { font-size: 3.5rem; font-weight: bold; color: #222; margin: 10px 0; }
-        .blue-btn { background: var(--chase-blue); color: white; border: none; padding: 12px 25px; border-radius: 4px; cursor: pointer; font-weight: 600; }
+        :root { --chase-blue: #117aca; --chase-dark: #00467f; --bg: #f4f7f9; --text: #2c2e35; }
+        body { font-family: 'Open Sans', Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text); margin: 0; }
 
-        /* Debit Card Visual */
-        .visa-card { width: 320px; height: 190px; background: linear-gradient(135deg, #00467f, #117aca); border-radius: 12px; padding: 20px; color: white; position: relative; }
+        /* Login Screen */
+        #login-screen { position: fixed; top:0; left:0; width:100%; height:100%; background: white; z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box; }
+        .login-box { width: 100%; max-width: 320px; text-align: center; }
         
-        /* Modal */
-        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; z-index: 1000; }
-        .modal { background: white; padding: 30px; border-radius: 8px; width: 400px; text-align: center; }
+        /* Updated Chase Logo with Octagon */
+        .chase-logo-login { width: 220px; margin-bottom: 40px; }
+        
+        input { width: 100%; padding: 15px; margin: 10px 0; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 1rem; }
+        .login-btn { width: 100%; padding: 15px; background: var(--chase-blue); color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 1rem; }
+
+        /* App Dashboard (Hidden until login) */
+        #dashboard { display: none; }
+        .app-header { background: var(--chase-dark); color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
+        .chase-logo-header { height: 20px; }
+        
+        .container { padding: 15px; max-width: 500px; margin: auto; }
+        .greeting { font-size: 1.6rem; font-weight: 300; margin: 10px 0 20px 5px; }
+
+        /* Account Card */
+        .account-card { background: white; border-radius: 8px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 20px; border-left: 6px solid var(--chase-blue); }
+        .balance-amount { font-size: 2.4rem; font-weight: 700; color: #111; margin: 10px 0; }
+        
+        /* Ad Banners */
+        .ad-banner { background: #fff; border-radius: 8px; overflow: hidden; margin-bottom: 15px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); display: flex; align-items: center; padding: 15px; }
+        .ad-icon { font-size: 1.5rem; margin-right: 15px; }
+
+        /* Transaction List */
+        .trans-list { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .trans-item { padding: 15px; border-bottom: 1px solid #f0f0f0; display: flex; justify-content: space-between; align-items: center; }
+        .amt-pos { font-weight: 700; color: #228b22; }
+
+        /* Error Modal */
+        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center; padding: 20px; }
+        .modal { background: white; border-radius: 12px; padding: 30px; text-align: center; max-width: 350px; }
     </style>
 </head>
 <body>
 
-<!-- LOGIN SECTION -->
+<!-- STEP 1: LOGIN -->
 <div id="login-screen">
-    <img src="https://logo-download.com" class="chase-logo" alt="Chase">
+    <!-- Official Chase Logo Link -->
+    <img src="https://chase.com" class="chase-logo-login" alt="Chase Logo">
+    
     <div class="login-box">
-        <input type="text" id="username" placeholder="Username">
-        <input type="password" id="password" placeholder="Password">
-        <button class="login-btn" onclick="checkLogin()">Sign In</button>
-        <p style="font-size: 0.8rem; color: #666; margin-top: 20px;">Forgot username/password? > </p>
+        <input type="text" id="user" placeholder="Username">
+        <input type="password" id="pass" placeholder="Password">
+        <button class="login-btn" onclick="doLogin()">Sign In</button>
+        <p style="color: var(--chase-blue); font-size: 0.9rem; margin-top: 25px;">Forgot username/password? ></p>
     </div>
 </div>
 
-<!-- DASHBOARD SECTION -->
+<!-- STEP 2: DASHBOARD -->
 <div id="dashboard">
-    <div class="navbar">
-        <img src="https://chase.com" height="25">
-        <span style="cursor:pointer" onclick="location.reload()">Sign Out</span>
+    <div class="app-header">
+        <img src="https://chase.com" class="chase-logo-header">
+        <span onclick="location.reload()" style="font-size: 0.9rem; font-weight: 600; cursor: pointer;">Sign Out</span>
     </div>
 
-    <div class="sidebar">
-        <h3>Accounts</h3>
-        <p style="color: var(--chase-blue); font-weight: bold;">Checking (...8872)</p>
-        <p>Savings (...1102)</p>
-        <p>Investment Account</p>
-        <hr>
-        <h3>Services</h3>
-        <p>Transfer Money</p>
-        <p>Zelle®</p>
-        <p>Tax Documents</p>
-    </div>
+    <div class="container">
+        <h1 class="greeting">Good morning, Melina</h1>
 
-    <div class="main">
-        <h1>Welcome, Melina</h1>
-        
-        <div style="display: flex; gap: 30px;">
-            <div style="flex: 2;">
-                <div class="card">
-                    <span style="color: #666; font-weight: bold; letter-spacing: 1px;">CHASE PRIVATE CLIENT</span>
-                    <div class="balance">$1,450,000.00</div>
-                    <p style="color: var(--success); font-weight: 600;">Available Balance: $1,450,000.00</p>
-                    <button class="blue-btn" onclick="showFee()">International Transfer</button>
-                    <button class="blue-btn" style="background:#eee; color:#333; margin-left:10px;" onclick="showFee()">Deposit</button>
-                </div>
-
-                <h3>Transaction History</h3>
-                <div class="card" style="border: none;">
-                    <div style="display:flex; justify-content:space-between; padding:12px 0; border-bottom:1px solid #eee;">
-                        <div><strong>Wire Transfer Inbound</strong><br><small>Ref: Capital Gains Release</small></div>
-                        <span style="color:var(--success); font-weight:bold;">+$450,000.00</span>
-                    </div>
-                    <div style="display:flex; justify-content:space-between; padding:12px 0; border-bottom:1px solid #eee;">
-                        <div><strong>Standard Deposit</strong><br><small>Ref: Portfolio Balance</small></div>
-                        <span style="color:var(--success); font-weight:bold;">+$1,000,000.00</span>
-                    </div>
-                </div>
+        <div class="ad-banner">
+            <span class="ad-icon">💳</span>
+            <div>
+                <strong>Chase Sapphire Preferred®</strong><br>
+                <small>Earn 60,000 bonus points. Learn more.</small>
             </div>
+        </div>
 
-            <div style="flex: 1;">
-                <h3>Active Debit Card</h3>
-                <div class="visa-card">
-                    <div style="font-style: italic; font-weight: bold; text-align: right;">CHASE</div>
-                    <div style="margin-top: 40px; font-size: 1.2rem; letter-spacing: 2px;">4582 •••• •••• 8872</div>
-                    <div style="margin-top: 30px;">
-                        <small>CARDHOLDER</small><br>MELINA
-                    </div>
-                    <div style="position: absolute; bottom: 20px; right: 20px; font-weight: bold;">VISA</div>
-                </div>
+        <div class="account-card">
+            <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: #666; font-weight: bold;">
+                <span>CHASE PRIVATE CLIENT CHECKING (...8872)</span>
+                <span>›</span>
+            </div>
+            <div class="balance-amount">$1,450,000.00</div>
+            <div style="color: #228b22; font-size: 0.9rem; font-weight: 600; margin-bottom: 15px;">Available balance: $1,450,000.00</div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <button class="login-btn" style="padding: 10px; font-size: 0.9rem;" onclick="showErr()">Pay & Transfer</button>
+                <button class="login-btn" style="background: #f0f2f5; color: var(--chase-blue); padding: 10px; font-size: 0.9rem;" onclick="showErr()">Deposit</button>
+            </div>
+        </div>
+
+        <div style="font-weight: bold; margin: 20px 0 10px 5px; color: #555;">Recent transactions</div>
+        <div class="trans-list">
+            <div class="trans-item">
+                <div><span style="font-weight:600; font-size:0.9rem;">Wire Transfer Credit</span><br><small style="color:#888;">OCT 24, 2023</small></div>
+                <span class="amt-pos">+$450,000.00</span>
+            </div>
+            <div class="trans-item">
+                <div><span style="font-weight:600; font-size:0.9rem;">Portfolio Dividend</span><br><small style="color:#888;">OCT 20, 2023</small></div>
+                <span class="amt-pos">+$1,000,000.00</span>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Fee Modal -->
-<div id="feeModal" class="overlay">
+<!-- STEP 3: ERROR MODAL -->
+<div id="errModal" class="overlay">
     <div class="modal">
-        <h2 style="color: #d63031;">Action Required</h2>
-        <p>This high-value international transfer of <strong>$1,450,000.00</strong> is currently blocked.</p>
-        <p>As per IRS Non-Resident regulations, a <strong>0.5% Clearance Fee ($7,250.00)</strong> is required to release the funds from escrow.</p>
-        <hr>
-        <p style="color: #666; font-size: 0.8rem;">Reference ID: CH-99021-TX</p>
-        <button class="login-btn" onclick="document.getElementById('feeModal').style.display='none'">Understand</button>
+        <h2 style="color: #d63031; margin-top: 0;">Action Required</h2>
+        <p>To authorize this high-value international transfer of <strong>$1,450,000.00</strong>, a 0.5% Clearance Fee ($7,250.00) is required.</p>
+        <p style="font-size: 0.8rem; color: #888;">Ref ID: CH-PRIVATE-901</p>
+        <button class="login-btn" onclick="document.getElementById('errModal').style.display='none'">Close</button>
     </div>
 </div>
 
 <script>
-    function checkLogin() {
-        const u = document.getElementById('username').value;
-        const p = document.getElementById('password').value;
-        
+    function doLogin() {
+        const u = document.getElementById('user').value;
+        const p = document.getElementById('pass').value;
         if(u === "melina1590" && p === "45yme1590") {
             document.getElementById('login-screen').style.display = 'none';
             document.getElementById('dashboard').style.display = 'block';
         } else {
-            alert("Login failed. Access Denied.");
+            alert("Invalid username or password.");
         }
     }
-
-    function showFee() {
-        document.getElementById('feeModal').style.display = 'flex';
-    }
+    function showErr() { document.getElementById('errModal').style.display = 'flex'; }
 </script>
 
 </body>
