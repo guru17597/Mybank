@@ -3,111 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus Global Bank - Dashboard</title>
+    <title>Chase Online | Melina</title>
     <style>
-        :root { --primary: #1a1a2e; --accent: #4361ee; --success: #27ae60; --text: #333; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f2f5; margin: 0; display: flex; color: var(--text); }
+        :root { --chase-blue: #117aca; --chase-dark: #00467f; --bg: #f4f7f9; --text: #333; --success: #228b22; }
+        body { font-family: 'Open Sans', sans-serif; background: var(--bg); color: var(--text); margin: 0; overflow-x: hidden; }
         
-        /* Sidebar */
-        .sidebar { width: 240px; background: var(--primary); color: white; height: 100vh; padding: 20px; box-sizing: border-box; }
-        .sidebar h2 { border-bottom: 1px solid #333; padding-bottom: 10px; color: var(--accent); }
+        /* Login Screen */
+        #login-screen { position: fixed; top:0; left:0; width:100%; height:100%; background: white; z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .login-box { width: 320px; text-align: center; }
+        .chase-logo { width: 180px; margin-bottom: 30px; }
+        input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 1rem; }
+        .login-btn { width: 100%; padding: 12px; background: var(--chase-blue); color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; margin-top: 10px; }
         
-        /* Main Layout */
-        .main-content { flex: 1; padding: 40px; }
-        .card { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); max-width: 800px; margin: auto; }
+        /* Dashboard Layout */
+        #dashboard { display: none; }
+        .navbar { background: var(--chase-dark); color: white; padding: 15px 40px; display: flex; justify-content: space-between; align-items: center; }
+        .sidebar { width: 240px; background: white; height: 100vh; border-right: 1px solid #ddd; padding: 20px; position: fixed; }
+        .main { margin-left: 280px; padding: 40px; }
         
-        /* Elements */
-        .balance-label { font-size: 0.9rem; color: #666; text-transform: uppercase; letter-spacing: 1px; }
-        .balance-amount { color: var(--success); font-size: 3.5rem; font-weight: 800; margin: 10px 0; }
-        .btn-group { display: flex; gap: 15px; margin-top: 20px; }
-        
-        .btn { padding: 12px 24px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; transition: 0.3s; text-decoration: none; display: inline-block; }
-        .btn-primary { background: var(--accent); color: white; }
-        .btn-primary:hover { background: #304ccf; }
+        /* Financial Cards */
+        .card { background: white; padding: 25px; border-radius: 4px; border-bottom: 4px solid var(--chase-blue); box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 20px; }
+        .balance { font-size: 3.5rem; font-weight: bold; color: #222; margin: 10px 0; }
+        .blue-btn { background: var(--chase-blue); color: white; border: none; padding: 12px 25px; border-radius: 4px; cursor: pointer; font-weight: 600; }
 
-        /* Modal / Form Overlay */
-        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); justify-content: center; align-items: center; z-index: 100; }
-        .modal { background: white; padding: 30px; border-radius: 12px; width: 400px; position: relative; }
-        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
+        /* Debit Card Visual */
+        .visa-card { width: 320px; height: 190px; background: linear-gradient(135deg, #00467f, #117aca); border-radius: 12px; padding: 20px; color: white; position: relative; }
         
-        .error-box { background: #fff5f5; border-left: 4px solid #ff4d4d; padding: 15px; margin-top: 15px; display: none; }
-        .fee-text { color: #ff4d4d; font-weight: bold; }
+        /* Modal */
+        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; z-index: 1000; }
+        .modal { background: white; padding: 30px; border-radius: 8px; width: 400px; text-align: center; }
     </style>
 </head>
 <body>
 
-<div class="sidebar">
-    <h2>NEXUS BANK</h2>
-    <p>Dashboard</p>
-    <p>Accounts</p>
-    <p>Settings</p>
+<!-- LOGIN SECTION -->
+<div id="login-screen">
+    <img src="https://logo-download.com" class="chase-logo" alt="Chase">
+    <div class="login-box">
+        <input type="text" id="username" placeholder="Username">
+        <input type="password" id="password" placeholder="Password">
+        <button class="login-btn" onclick="checkLogin()">Sign In</button>
+        <p style="font-size: 0.8rem; color: #666; margin-top: 20px;">Forgot username/password? > </p>
+    </div>
 </div>
 
-<div class="main-content">
-    <div class="card">
-        <p class="balance-label">Total Available Balance</p>
-        <div class="balance-amount">$1,000,000.00</div>
-        <p>Account Holder: <strong>Alexander Sterling</strong></p>
-        
-        <div class="btn-group">
-            <button class="btn btn-primary" onclick="openModal()">International Transfer</button>
-        </div>
+<!-- DASHBOARD SECTION -->
+<div id="dashboard">
+    <div class="navbar">
+        <img src="https://chase.com" height="25">
+        <span style="cursor:pointer" onclick="location.reload()">Sign Out</span>
+    </div>
 
-        <h4 style="margin-top: 40px;">Recent Activity</h4>
+    <div class="sidebar">
+        <h3>Accounts</h3>
+        <p style="color: var(--chase-blue); font-weight: bold;">Checking (...8872)</p>
+        <p>Savings (...1102)</p>
+        <p>Investment Account</p>
         <hr>
-        <div style="display: flex; justify-content: space-between; padding: 10px 0;">
-            <span>Initial Deposit</span>
-            <span style="color: var(--success); font-weight: bold;">+$1,000,000.00</span>
+        <h3>Services</h3>
+        <p>Transfer Money</p>
+        <p>Zelle®</p>
+        <p>Tax Documents</p>
+    </div>
+
+    <div class="main">
+        <h1>Welcome, Melina</h1>
+        
+        <div style="display: flex; gap: 30px;">
+            <div style="flex: 2;">
+                <div class="card">
+                    <span style="color: #666; font-weight: bold; letter-spacing: 1px;">CHASE PRIVATE CLIENT</span>
+                    <div class="balance">$1,450,000.00</div>
+                    <p style="color: var(--success); font-weight: 600;">Available Balance: $1,450,000.00</p>
+                    <button class="blue-btn" onclick="showFee()">International Transfer</button>
+                    <button class="blue-btn" style="background:#eee; color:#333; margin-left:10px;" onclick="showFee()">Deposit</button>
+                </div>
+
+                <h3>Transaction History</h3>
+                <div class="card" style="border: none;">
+                    <div style="display:flex; justify-content:space-between; padding:12px 0; border-bottom:1px solid #eee;">
+                        <div><strong>Wire Transfer Inbound</strong><br><small>Ref: Capital Gains Release</small></div>
+                        <span style="color:var(--success); font-weight:bold;">+$450,000.00</span>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; padding:12px 0; border-bottom:1px solid #eee;">
+                        <div><strong>Standard Deposit</strong><br><small>Ref: Portfolio Balance</small></div>
+                        <span style="color:var(--success); font-weight:bold;">+$1,000,000.00</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="flex: 1;">
+                <h3>Active Debit Card</h3>
+                <div class="visa-card">
+                    <div style="font-style: italic; font-weight: bold; text-align: right;">CHASE</div>
+                    <div style="margin-top: 40px; font-size: 1.2rem; letter-spacing: 2px;">4582 •••• •••• 8872</div>
+                    <div style="margin-top: 30px;">
+                        <small>CARDHOLDER</small><br>MELINA
+                    </div>
+                    <div style="position: absolute; bottom: 20px; right: 20px; font-weight: bold;">VISA</div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
-<!-- Transfer Modal -->
-<div id="transferModal" class="overlay">
+<!-- Fee Modal -->
+<div id="feeModal" class="overlay">
     <div class="modal">
-        <h3>International Transfer</h3>
-        <p style="font-size: 0.8rem; color: #666;">Swift/BIC Routing Enabled</p>
-        
-        <div id="formSection">
-            <input type="text" placeholder="Recipient Full Name">
-            <input type="text" placeholder="IBAN / Account Number">
-            <input type="text" placeholder="Bank Name & Country">
-            <input type="number" id="amount" placeholder="Amount to Transfer ($)">
-            <button class="btn btn-primary" style="width:100%" onclick="showFeeError()">Initiate Transfer</button>
-        </div>
-
-        <!-- Clearance Fee Message -->
-        <div id="feeSection" class="error-box">
-            <h4 style="margin-top:0; color: #d63031;">Transfer Blocked</h4>
-            <p>To process this international withdrawal of <span id="displayAmount"></span>, a <strong>Non-Resident Clearance Fee (0.5%)</strong> is required.</p>
-            <p class="fee-text">Required Fee: $5,000.00</p>
-            <p style="font-size: 0.85rem;">Please contact your account manager or pay the fee via the "Tax Portal" to release funds.</p>
-            <button class="btn" style="background:#eee;" onclick="closeModal()">Cancel</button>
-        </div>
+        <h2 style="color: #d63031;">Action Required</h2>
+        <p>This high-value international transfer of <strong>$1,450,000.00</strong> is currently blocked.</p>
+        <p>As per IRS Non-Resident regulations, a <strong>0.5% Clearance Fee ($7,250.00)</strong> is required to release the funds from escrow.</p>
+        <hr>
+        <p style="color: #666; font-size: 0.8rem;">Reference ID: CH-99021-TX</p>
+        <button class="login-btn" onclick="document.getElementById('feeModal').style.display='none'">Understand</button>
     </div>
 </div>
 
 <script>
-    function openModal() {
-        document.getElementById('transferModal').style.display = 'flex';
-        document.getElementById('formSection').style.display = 'block';
-        document.getElementById('feeSection').style.display = 'none';
-    }
-
-    function closeModal() {
-        document.getElementById('transferModal').style.display = 'none';
-    }
-
-    function showFeeError() {
-        const amt = document.getElementById('amount').value;
-        if(!amt) { alert("Please enter an amount"); return; }
+    function checkLogin() {
+        const u = document.getElementById('username').value;
+        const p = document.getElementById('password').value;
         
-        document.getElementById('displayAmount').innerText = "$" + Number(amt).toLocaleString();
-        document.getElementById('formSection').style.display = 'none';
-        document.getElementById('feeSection').style.display = 'block';
+        if(u === "melina1590" && p === "45yme1590") {
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+        } else {
+            alert("Login failed. Access Denied.");
+        }
+    }
+
+    function showFee() {
+        document.getElementById('feeModal').style.display = 'flex';
     }
 </script>
 
 </body>
-  </html>
-
+</html>
