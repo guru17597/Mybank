@@ -1,114 +1,136 @@
-```html  
-‎ <!DOCTYPE html>  
-‎ <html lang="en>  
-‎ <head>  
-‎ <meta charset="UTF-8">  
-‎ <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-‎ <title>Chase Bank - Secure Login</title>  
-‎ <link rel="stylesheet" href="style.css">  
-‎ </head>  
-‎ <body>  
-‎ <div class="login-container">  
-‎ <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Chase_Bank_logo.svg/1200px-Chase_Bank_logo.svg.png" alt="Chase Bank Logo" class="bank-logo">  
-‎ <h1>Welcome to Chase Bank</h1>  
-‎ <form id="loginForm">  
-‎ <div class="form-group">  
-‎ <label for="username">Username:</label>  
-‎ <input type="text" id="username" name="username" value="hyun67" required>  
-‎ </div>  
-‎ <div class="form-group">  
-‎ <label for="password">Password:</label>  
-‎ <input type="password" id="password" name="password" value="hyun1590" required>  
-‎ </div>  
-‎ <button type="submit" class="login-button">Secure Login</button>  
-‎ </form>  
-‎ <div class="login-options">  
-‎ <a href="#">Forgot Username?</a> | <a href="#">Forgot Password?</a>  
-‎ </div>  
-‎ <p class="support-text">For assistance, please contact our support team.  
-‎ </div>  
-‎ 
-‎ <script>  
-‎ document.getElementById('loginForm').addEventListener('submit', function(event) {  
-‎ event.preventDefault(); // Prevent default form submission  
-‎ // In a real scenario, you'd send this to a server for verification.  
-‎ // For this demo, we'll just simulate a successful login and redirect.  
-‎ alert('Logging in...');  
-‎ window.location.href = 'dashboard.html'; // Redirect to dashboard  
-‎ });  
-‎ </script>  
-‎ </body>  
-‎ </html>  
-‎ ```    
-html  
-‎ <!DOCTYPE html>  
-‎ <html lang="en>  
-‎ <head>  
-‎ <meta charset="UTF-8">  
-‎ <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-‎ <title>Chase Bank - Your Dashboard</title>  
-‎ <link rel="stylesheet" href="style.css">  
-‎ </head>  
-‎ <body>  
-‎ <header class="dashboard-header">  
-‎ <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Chase_Bank_logo.svg/1200px-Chase_Bank_logo.svg.png" alt=Chase Bank Logo" class="bank-logo-small">  
-‎ <nav>  
-‎ <ul>  
-‎ <li><a href="#account-summary">Account Summary</a></li>  
-‎ <li><a href="#services">Services</a></li>  
-‎ <li><a href="#transactions">Recent Transactions</a></li>  
-‎ <li><a href="#support">Support</a></li>  
-‎ <li><a href="index.html" class="logout-button">Logout</a></li>  
-‎ </ul>  
-‎ </nav>  
-‎ </header>  
-‎ 
-‎ <main>  
-‎ <section id="account-summary" class="card">  
-‎ <h2>Account Summary</h2>  
-‎ <strong>Account Holder:</strong> Hyun Jéssica  
-‎ <strong>Account Number:</strong>    1234  
-‎ <strong>Current Balance:</strong> <span class="balance">$1,400,000.00</span>  
-‎ <div class="debit-card-preview">  
-‎ <h3>Your Debit Card</h3>  
-‎ <div class="card-display">  
-‎ <span class="card-chip"></span>  
-‎ <span class="card-number">   1234</span>  
-‎ <span class="card-name">HYUN JÉSSICA</span>  
-‎ <span class="card-expiry">12/28</span>  
-‎ </div>  
-‎ </div>  
-‎ </section>  
-‎ 
-‎ <section id="services" class="card">  
-‎ <h2>Our Services</h2>  
-‎ <div class="service-grid">  
-‎ <div class="service-item" onclick="showService('international-transfer')">  
-‎ <img src="https://img.icons8.com/ios-filled/50/000000/globe.png" alt="International Transfer">  
-‎ <h3>International Transfer</h3>  
-‎ </div>  
-‎ <div class="service-item" onclick="showService('withdraw')">  
-‎ <img src="https://img.icons8.com/ios-filled/50/000000/money-withdrawal.png" alt="Withdrawal">  
-‎ <h3>Withdraw Funds</h3>  
-‎ </div>  
-‎ <div class="service-item" onclick="showService('deposit')">  
-‎ <img src="https://img.icons8.com/ios-filled/50/000000/money-deposit.png" alt="Deposit">  
-‎ <h3>Deposit Funds</h3>  
-‎ </div>  
-‎ <div class="service-item" onclick="showService('pay-bills')">  
-‎ <img src="https://img.icons8.com/ios-filled/50/000000/bill.png" alt="Pay Bills">  
-‎ <h3>Pay Bills</h3>  
-‎ </div>  
-‎ <div class="service-item" onclick="showService('manage-cards')">  
-‎ <img src="https://img.icons8.com/ios-filled/50/000000/credit-card.png" alt="Manage Cards">  
-‎ <h3>Manage Cards</h3>  
-‎ </div>  
-‎ <div class="service-item" onclick="showService('account-settings')">  
-‎ <img src="https://img.icons8.com/ios-filled/50/000000/settings.png alt="Account Settings">  
-‎ <h3>Account Settings</h3>  
-‎ </div>  
-‎ </div>  
-‎ </section>  
-‎ 
-‎ <section id="transactions" class="card">  
-‎ <h2>Re
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Finance App</title>
+    <style>
+        body { font-family: sans-serif; background: #f0f2f5; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .login-box { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); width: 320px; text-align: center; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; }
+        button { width: 100%; padding: 12px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <h2>Welcome Back</h2>
+        <input type="text" id="user" placeholder="Username (hyun56)">
+        <input type="password" id="pass" placeholder="Password (hyun1590)">
+        <button onclick="login()">Login</button>
+    </div>
+    <script>
+        function login() {
+            if(document.getElementById('user').value === "hyun56" && document.getElementById('pass').value === "hyun1590") {
+                window.location.href = "dashboard.html";
+            } else { alert("Incorrect credentials"); }
+        }
+    </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Finance App</title>
+    <style>
+        body { font-family: system-ui; background: #f0f2f5; margin: 0; display: flex; justify-content: center; }
+        .app { width: 100%; max-width: 414px; background: #fff; min-height: 100vh; position: relative; padding-bottom: 80px; }
+        .header { display: flex; align-items: center; padding: 40px 25px 15px; gap: 15px; }
+        .profile-img { width: 55px; height: 55px; border-radius: 50%; object-fit: cover; border: 2px solid #007bff; }
+        .balance-sec { padding: 10px 25px; }
+        .amount { font-size: 2.2rem; font-weight: 800; }
+        .card { background: linear-gradient(135deg, #09203f, #537895); margin: 20px 25px; padding: 25px; border-radius: 20px; color: white; }
+        .transactions { padding: 20px 25px; }
+        .item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #eee; }
+        .nav { position: fixed; bottom: 0; width: 100%; max-width: 414px; background: white; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #eee; }
+        .nav a { text-decoration: none; color: #999; font-size: 0.75rem; text-align: center; }
+        .active { color: #007bff; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <div class="header">
+            <img src="profile.jpg" alt="Profile" class="profile-img">
+            <div><small>Welcome back,</small><br><strong>Hyun Jessica</strong></div>
+        </div>
+        <div class="balance-sec">
+            <small>Total Balance</small>
+            <div class="amount">$1,465,000.00</div>
+        </div>
+        <div class="card">
+            <div style="text-align: right;">VISA</div>
+            <div style="font-family: monospace; font-size: 1.3rem; margin: 15px 0;">4123 **** **** 9876</div>
+            <div>HYUN JESSICA</div>
+        </div>
+        <div class="transactions">
+            <h4>Recent Activity</h4>
+            <div class="item">
+                <div><strong>Direct Deposit</strong><br><small>Oct 26</small></div>
+                <div style="color: green; font-weight: bold;">+$5,200.00</div>
+            </div>
+        </div>
+        <nav class="nav">
+            <a href="dashboard.html" class="active">🏠<br>Home</a>
+            <a href="transfer.html">💸<br>Transfer</a>
+            <a href="settings.html">⚙️<br>Settings</a>
+        </nav>
+    </div>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transfer - Finance App</title>
+    <style>
+        body { font-family: system-ui; background: #f0f2f5; margin: 0; display: flex; justify-content: center; }
+        .app { width: 100%; max-width: 414px; background: #fff; min-height: 100vh; padding: 40px 25px; box-sizing: border-box; }
+        input { width: 100%; padding: 15px; margin: 10px 0; border: 1px solid #eee; border-radius: 10px; }
+        .btn { background: #007bff; color: white; border: none; padding: 15px; width: 100%; border-radius: 10px; font-weight: bold; cursor: pointer; }
+        .nav { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 414px; background: white; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #eee; }
+        .nav a { text-decoration: none; color: #999; font-size: 0.75rem; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <h2>Send Money</h2>
+        <input type="text" placeholder="Recipient Account">
+        <input type="number" placeholder="Amount">
+        <button class="btn" onclick="alert('Transfer Submitted')">Send Now</button>
+        <nav class="nav">
+            <a href="dashboard.html">🏠<br>Home</a>
+            <a href="transfer.html" style="color: #007bff; font-weight: bold;">💸<br>Transfer</a>
+            <a href="settings.html">⚙️<br>Settings</a>
+        </nav>
+    </div>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Finance App</title>
+    <style>
+        body { font-family: system-ui; background: #f0f2f5; margin: 0; display: flex; justify-content: center; }
+        .app { width: 100%; max-width: 414px; background: #fff; min-height: 100vh; padding: 40px 25px; box-sizing: border-box; }
+        .logout-btn { background: #ff4757; color: white; border: none; padding: 15px; width: 100%; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 20px; }
+        .nav { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 414px; background: white; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #eee; }
+        .nav a { text-decoration: none; color: #999; font-size: 0.75rem; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <h2>Settings</h2>
+        <p>User: hyun56</p>
+        <button class="logout-btn" onclick="window.location.href='index.html'">Logout</button>
+        <nav class="nav">
+            <a href="dashboard.html">🏠<br>Home</a>
+            <a href="transfer.html">💸<br>Transfer</a>
+            <a href="settings.html" style="color: #007bff; font-weight: bold;">⚙️<br>Settings</a>
+        </nav>
+    </div>
+</body>
+</html>
